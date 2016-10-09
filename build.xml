@@ -3,33 +3,17 @@
  <property name="toolsdir" value=""/>
 
  <target name="build"
-         depends="prepare,vendors,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox"
+         depends="prepare,vendors,lint,phpunit,phpdox"
          description=""/>
 
  <target name="build-parallel"
-         depends="prepare,lint,tools-parallel,phpunit,phpdox"
+         depends="prepare,lint,phpunit"
          description=""/>
-
- <target name="tools-parallel" description="Run tools in parallel">
-  <parallel threadCount="2">
-   <sequential>
-    <antcall target="pdepend"/>
-    <antcall target="phpmd-ci"/>
-   </sequential>
-   <antcall target="phpcpd-ci"/>
-   <antcall target="phpcs-ci"/>
-   <antcall target="phploc-ci"/>
-  </parallel>
- </target>
 
  <target name="clean"
          unless="clean.done"
          description="Cleanup build artifacts">
-  <delete dir="${basedir}/build/api"/>
   <delete dir="${basedir}/build/coverage"/>
-  <delete dir="${basedir}/build/logs"/>
-  <delete dir="${basedir}/build/pdepend"/>
-  <delete dir="${basedir}/build/phpdox"/>
   <property name="clean.done" value="true"/>
  </target>
 
@@ -77,5 +61,5 @@
    <arg path="${basedir}/phpunit.xml"/>
   </exec>
  </target>
- 
+
 </project>
